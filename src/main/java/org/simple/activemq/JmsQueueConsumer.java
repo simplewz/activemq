@@ -5,6 +5,9 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import javax.jms.*;
 import java.io.IOException;
 
+/**
+ * JMS消费队列消息的步骤
+ */
 public class JmsQueueConsumer {
 
     private static final String ACTIVEMQ_URL="tcp://49.235.2.116:61616";
@@ -70,7 +73,7 @@ public class JmsQueueConsumer {
          * 2. 生产者先生产消息，先启动1号消费者，再启动2号消费者。
          *    1号消费者可以消费消息，2号消费者不能消费消息。
          * 3. 先启动1号消费者,再启动2号消费者，然后再生产消息。消息的消费情况是怎么样的。
-         *    1号、2号消费者按照消费者的启动顺序消费消息队列中消息
+         *    1号、2号消费者按照消费者的启动顺序消费消息队列中消息(轮询机制)
          */
 
         //7. 关闭资源

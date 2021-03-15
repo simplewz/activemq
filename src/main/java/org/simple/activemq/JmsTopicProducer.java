@@ -4,6 +4,9 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
 
+/**
+ * JMS创建主题消息的步骤
+ */
 public class JmsTopicProducer {
     private static final String MQ_URL="tcp://49.235.2.116:61616";
     private static final String TOPIC_NAME="simple-topic";

@@ -4,6 +4,9 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
 
+/**
+ * 典型的JMS创建消息生产者的步骤
+ */
 public class JmsQueueProducer {
 
     private static final String ACTIVEMQ_URL="tcp://49.235.2.116:61616";
