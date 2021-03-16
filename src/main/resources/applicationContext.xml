@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <!-- 开启包的自动扫描 -->
+    <context:component-scan base-package="org.simple.activemq.spring"></context:component-scan>
+
+    <!-- 配置生产者 -->
+    <bean id="jmsFactory" class="org.apache.activemq.pool.PooledConnectionFactory" destroy-method="stop">
+        <property name="connectionFactory">
+            <!-- 配置可以真正产生connection的connectionFactory,由具体的JMS服务厂商提供-->
+            <bean class="org.apache.activemq.ActiveMQConnectionFactory">
+                <property name="brokerURL" value="tcp://49.235.2.116:61616"/>
+            </bean>
+        </property>
+        <property name="maxConnections" value="100"/>
+    </bean>
+
+    <!-- 配置队列目的地 -->
+    <bean id="destinationQueue" class="org.apache.activemq.command.ActiveMQQueue">
+        <constructor-arg index="0" value="spring-active-queue"/>
+    </bean>
+
+    <!-- jmsTemplate,可以连接MQ中间件进行消息的发送与接收等 -->
+    <bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+        <property name="connectionFactory" ref="jmsFactory"/>
+        <property name="defaultDestination" ref="destinationQueue"/>
+        <property name="messageConverter">
+            <bean class="org.springframework.jms.support.converter.SimpleMessageConverter"></bean>
+        </property>
+    </bean>
+
+</beans>
